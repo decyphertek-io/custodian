@@ -30,7 +30,7 @@ custodian Setup
             {
                 "Effect": "Allow",
                 "Principal": {
-                    "AWS": "arn:aws:iam::561908028191:user/decyphertek"
+                    "AWS": "arn:aws:iam::xxxxxxxxxx:user/decyphertek"
                 },
                 "Action": "sts:AssumeRole",
                 "Condition": {
@@ -65,10 +65,10 @@ custodian Setup
             {
                 "Effect": "Allow",
                 "Action": "sts:AssumeRole",
-                "Resource": "arn:aws:iam::561908028191:role/Assume_Role_Policy",
+                "Resource": "arn:aws:iam::xxxxxxxxxxxxx:role/Assume_Role_Policy",
                 "Condition": {
                     "StringEquals": {
-                        "sts:ExternalId": "cloud-custodian-external-id"
+                        "sts:ExternalId": "cloud-custodian-external-id-xxxxxxxxx"
                     }
                 }
             }
