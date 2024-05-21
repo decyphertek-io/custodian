@@ -1,9 +1,10 @@
+# Work in Progress.... Currently brings up the admin account, not the root, troubleshooting
 policies:
   - name: aws-cis-1-4-ensure-no-root-access-keys
     resource: account
     filters:
       - type: iam-summary
-        key: RootAccessKeysPresent
+        key: AccountAccessKeysPresent
         value: 0
         op: ne
     actions:
@@ -12,7 +13,7 @@ policies:
       - type: put-metric
         namespace: "AWS/CloudWatch"
         metric_name: "RootAccessKeysPresent"
-        key: "RootAccessKeysPresent"
+        key: "AccountAccessKeysPresent"
         dimensions:
           - name: AccountId
             value: "{{ account_id }}"
