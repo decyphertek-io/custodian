@@ -2,9 +2,6 @@ policies:
   - name: aws-cis-1-4-ensure-no-root-access-keys
     resource: account
     filters:
-      - type: value
-        key: account_id
-        value: "{{ account_id }}"
       - type: iam-summary
         key: AccountAccessKeysPresent
         value: 0
@@ -19,3 +16,4 @@ policies:
         dimensions:
           - name: AccountId
             value: "{{ account_id }}"
+
