@@ -12,10 +12,10 @@ policies:
       - type: put-metric
         namespace: "AWS/CloudWatch"
         metric_name: "RootAccessKeysPresent"
-        key: "AccountId"
-        value: "{{ account_id }}"
-        statistic: "Sum"
-        period: 300
+        dimensions:
+          - name: AccountId
+            value: "{{ account_id }}"
+
 
 
 
