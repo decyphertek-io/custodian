@@ -1,4 +1,4 @@
-# Work in Progress....
+# Work in Progress.... Currently brings up the admin account, not the root, troubleshooting
 policies:
   - name: aws-cis-1.4-ensure-no-root-access-keys
     resource: account
