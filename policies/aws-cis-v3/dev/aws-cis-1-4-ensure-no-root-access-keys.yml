@@ -1,5 +1,5 @@
 policies:
-  - name: aws-cis-1-4-ensure-no-root-access-keys
+  - name: aws-cis-1.4-ensure-no-root-access-keys
     resource: account
     filters:
       - type: iam-summary
