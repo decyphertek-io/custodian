@@ -1,0 +1,21 @@
+policies:
+  - name: aws-cis-1-4-ensure-no-root-access-keys
+    resource: account
+    filters:
+      - type: value
+        key: account_id
+        value: "{{ account_id }}"
+      - type: iam-summary
+        key: AccountAccessKeysPresent
+        value: 0
+        op: ne
+    actions:
+      - type: invoke-lambda
+        function: arn:aws:lambda:us-east-1:{{ account_id }}:function:delete-root-access-keys
+      - type: put-metric
+        namespace: "AWS/CloudWatch"
+        metric_name: "RootAccessKeysPresent"
+        key: "AccountAccessKeysPresent"
+        dimensions:
+          - name: AccountId
+            value: "{{ account_id }}"
