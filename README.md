@@ -3,7 +3,7 @@ custodian Setup
 
     # Running AWS as a regular user instead of root
     sudo mkdir /opt/awscli/
-    sudo chown -R adminotaur /opt/awscli/
+    sudo chown -R $USER /opt/awscli/
     # Install AWS CLI under /opt/awscli/ and configure without using sudo
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
