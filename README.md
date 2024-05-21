@@ -35,7 +35,7 @@ custodian Setup
                 "Action": "sts:AssumeRole",
                 "Condition": {
                     "StringEquals": {
-                        "sts:ExternalId": "cloud-custodian-external-id"
+                        "sts:ExternalId": "cloud-custodian-external-id-xxxxxxxxx"
                     }
                 }
             }
