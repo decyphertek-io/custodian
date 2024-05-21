@@ -1,0 +1,13 @@
+policies:
+  - name: update-ec2-tags
+    resource: aws.ec2
+    region: us-east-1
+    filters:
+      - "tag:decyphertek": present
+    actions:
+      - type: remove-tag
+        tags: ["decyphertek"]
+      - type: tag
+        key: Cloud-Custodian
+        value: Production
+
