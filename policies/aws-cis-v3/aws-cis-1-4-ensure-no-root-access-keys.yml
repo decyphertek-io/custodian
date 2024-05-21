@@ -1,16 +1,23 @@
 policies:
   - name: aws-cis-1-4-ensure-no-root-access-keys
-    resource: aws.lambda
+    resource: account
     filters:
-      - type: value
-        key: FunctionName
-        value: delete-root-access-keys
+      - type: iam-summary
+        key: AccountAccessKeysPresent
+        value: 0
+        op: ne
     actions:
       - type: invoke-lambda
-        function: arn:aws:lambda:us-east-1:<your_account_id>:function:delete-root-access-keys
-      - type: cloudtrail
-        trails:
-          - arn: arn:aws:cloudtrail:us-east-1:<account_id>:trail/delete-root-access-keys
+        function: arn:aws:lambda:us-east-1:{{ account_id }}:function:delete-root-access-keys
+      - type: put-metric
+        namespace: "AWS/CloudWatch"
+        metric_name: "RootAccessKeysPresent"
+        statistic: "Sum"
+        period: 300
+        dimensions:
+          - name: AccountId
+            value: {{ account_id }}
+
 
 
 
