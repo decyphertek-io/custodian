@@ -1,5 +1,10 @@
-custodian Setup
+Cloud Custodian 
 ===============
+
+"Cloud Custodian enables you to manage your cloud resources by filtering, tagging, and then applying actions to them. The YAML DSL allows defininition of rules to enable well-managed cloud infrastructure that's both secure and cost optimized."
+
+Install & Setup:
+----------------
 
     # Running AWS as a regular user instead of root
     sudo mkdir /opt/awscli/
@@ -108,3 +113,8 @@ custodian Setup
     cat resources.json
     # Run the remediaiton
     custodian run dev.yaml --output-dir . --verbose
+
+References:
+------------
+
+https://cloudcustodian.io/
