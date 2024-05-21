@@ -62,6 +62,8 @@ Install & Setup:
     ]
     }
 
+    # Add Administrator Permissions: IAM > Roles > Assume_Role_Policy > add permisisons > attach Policy > AdministratorAccess
+
     # Add role permisisons for User: Iam > Users > decyphertek > Json
 
     {
@@ -79,6 +81,8 @@ Install & Setup:
             }
         ]
     }
+
+    
 
     # make sure to add the role arn and external ID to the aws config
     vim ~/.aws/config
