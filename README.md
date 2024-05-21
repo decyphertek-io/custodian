@@ -1,110 +1,110 @@
-# custodian Setup
-# No Root
-sudo mkdir /opt/awscli/
-sudo chown -R adminotaur /opt/awscli/
-# Install AWS CLI under /opt/awscli/ and configure without using sudo
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-./aws/install -i /opt/awscli -b /opt/awscli/bin
-vim ~/.bashrc
+custodian Setup
+===============
 
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$PATH:/opt/awscli/bin
-export AWS_PROFILE=personal
-export AWS_DEFAULT_REGION=us-east-1
-source ~/.bashrc
+    # Running AWS as a regular user instead of root
+    sudo mkdir /opt/awscli/
+    sudo chown -R adminotaur /opt/awscli/
+    # Install AWS CLI under /opt/awscli/ and configure without using sudo
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    ./aws/install -i /opt/awscli -b /opt/awscli/bin
+    # AwsCli profile setup , Need an admin user with aws keys, root acocunt doesnt work.
+    aws configure --profile personal
 
+    vim ~/.bashrc
 
-python3 -m pip install c7n --break-system-packages
-
-# Create an assume Role : IAM > Roles > Custom Trust Policy
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::561908028191:user/decyphertek"
-            },
-            "Action": "sts:AssumeRole",
-            "Condition": {
-                "StringEquals": {
-                    "sts:ExternalId": "cloud-custodian-external-id"
-                }
-            }
-        }
-    ]
-}
+    export PATH=$HOME/.local/bin:$PATH
+    export PATH=$PATH:/opt/awscli/bin
+    export AWS_PROFILE=personal
+    export AWS_DEFAULT_REGION=us-east-1
+    source ~/.bashrc
 
 
+    python3 -m pip install c7n --break-system-packages
 
-# Go to New Role Created : Assume_role_Policy > Attach Permisisons > Iniline Policy
+    # Create an assume Role : IAM > Roles > Custom Trust Policy
 
-{
-  "Version": "2012-10-17",
-  "Statement": [
     {
-      "Effect": "Allow",
-      "Action": "*",
-      "Resource": "*"
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::561908028191:user/decyphertek"
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                    "StringEquals": {
+                        "sts:ExternalId": "cloud-custodian-external-id"
+                    }
+                }
+            }
+        ]
     }
-  ]
-}
 
-# Add role permisisons for User: Iam > Users > decyphertek > Json
 
-{
+
+    # Go to New Role Created : Assume_role_Policy > Attach Permisisons > Iniline Policy
+
+    {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Effect": "Allow",
-            "Action": "sts:AssumeRole",
-            "Resource": "arn:aws:iam::561908028191:role/Assume_Role_Policy",
-            "Condition": {
-                "StringEquals": {
-                    "sts:ExternalId": "cloud-custodian-external-id"
-                }
-            }
+        "Effect": "Allow",
+        "Action": "*",
+        "Resource": "*"
         }
     ]
-}
+    }
 
+    # Add role permisisons for User: Iam > Users > decyphertek > Json
 
-# AwsCli profile setup
-aws configure --profile personal
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": "sts:AssumeRole",
+                "Resource": "arn:aws:iam::561908028191:role/Assume_Role_Policy",
+                "Condition": {
+                    "StringEquals": {
+                        "sts:ExternalId": "cloud-custodian-external-id"
+                    }
+                }
+            }
+        ]
+    }
 
-# Cloud Custodian Config ( Does not load correctly when testing? )
-vim ~/.custodian/config.json
+    # make sure to add the role arn and external ID to the aws config
+    vim ~/.aws/config
+    [profile personal]
+    region = us-east-1
+    output = yaml
+    source_profile = personal
+    role_arn = arn:aws:iam::xxxxxxxxxxxx:role/Assume_Role_Policy
+    external_id = cloud-custodian-external-id-xxxxxxxxxxxx
 
-{
-  "cache": "~/.cache/cloud-custodian.cache",
-  "profile": "personal",
-  "account_id": "561908028191",
-  "assume_role": "arn:aws:iam::561908028191:role/Assume_Role_Policy",
-  "external_id": "cloud-custodian-external-id",
-  "log_group": null,
-  "tracer": null,
-  "metrics_enabled": null,
-  "metrics": null,
-  "output_dir": ".",
-  "cache_period": 15,
-  "dryrun": false,
-  "authorization_file": null,
-  "subparser": "run",
-  "config": null,
-  "configs": []
-}
+    # Create and test a policy
+    vim dev.yaml
 
-# Export aws settings
-vim ~/.bashrc
-export AWS_PROFILE=personal
-export AWS_DEFAULT_REGION=us-east-1
-source ~/.bashrc
+    policies:
+    - name: update-ec2-tags
+        resource: aws.ec2
+        region: us-east-1
+        filters:
+        - "tag:decyphertek": present
+        actions:
+        - type: remove-tag
+            tags: ["decyphertek"]
+        - type: tag
+            key: cloud-custodian
+            value: production
 
-# Create and test a policy
-vim dev.yaml
-
-# Test and run the policy
-custodian validate dev.yml
-custodian run dev.yaml --output-dir . --verbose --dryrun
+    # Test and run the policy
+    custodian validate dev.yml
+    custodian run dev.yaml --output-dir . --verbose --dryrun
+    # See if data is being found
+    cd dev  
+    cat resources.json
+    # Run the remediaiton
+    custodian run dev.yaml --output-dir . --verbose
