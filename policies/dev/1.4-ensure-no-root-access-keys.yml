@@ -3,7 +3,7 @@ policies:
     resource: account
     filters:
       - type: iam-summary
-        key: AccountAccessKeysPresent
+        key: RootAccessKeysPresent
         value: 0
         op: ne
     actions:
@@ -12,7 +12,7 @@ policies:
       - type: put-metric
         namespace: "AWS/CloudWatch"
         metric_name: "RootAccessKeysPresent"
-        key: "AccountAccessKeysPresent"
+        key: "RootAccessKeysPresent"
         dimensions:
           - name: AccountId
             value: "{{ account_id }}"
