@@ -9,13 +9,13 @@ custodian Setup
     unzip awscliv2.zip
     ./aws/install -i /opt/awscli -b /opt/awscli/bin
     # AwsCli profile setup , Need an admin user with aws keys, root acocunt doesnt work.
-    aws configure --profile personal
+    aws configure --profile decyphertek
 
     vim ~/.bashrc
 
     export PATH=$HOME/.local/bin:$PATH
     export PATH=$PATH:/opt/awscli/bin
-    export AWS_PROFILE=personal
+    export AWS_PROFILE=decyphertek
     export AWS_DEFAULT_REGION=us-east-1
     source ~/.bashrc
 
@@ -77,10 +77,10 @@ custodian Setup
 
     # make sure to add the role arn and external ID to the aws config
     vim ~/.aws/config
-    [profile personal]
+    [profile decyphertek]
     region = us-east-1
     output = yaml
-    source_profile = personal
+    source_profile = decyphertek
     role_arn = arn:aws:iam::xxxxxxxxxxxx:role/Assume_Role_Policy
     external_id = cloud-custodian-external-id-xxxxxxxxxxxx
 
