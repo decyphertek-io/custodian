@@ -11,12 +11,11 @@ policies:
         function: arn:aws:lambda:us-east-1:{{ account_id }}:function:delete-root-access-keys
       - type: put-metric
         namespace: "AWS/CloudWatch"
-        metric_name: RootAccessKeysPresent
-        statistic: Sum
+        metric_name: "RootAccessKeysPresent"
+        key: "AccountId"
+        value: "{{ account_id }}"
+        statistic: "Sum"
         period: 300
-        dimensions:
-          - name: AccountId
-            value: "{{ account_id }}"
 
 
 
