@@ -1,0 +1,16 @@
+policies:
+  - name: aws-cis-1-4-ensure-no-root-access-keys
+    resource: aws.lambda
+    filters:
+      - type: value
+        key: FunctionName
+        value: delete-root-access-keys
+    actions:
+      - type: invoke-lambda
+        function: arn:aws:lambda:us-east-1:<your_account_id>:function:delete-root-access-keys
+      - type: cloudtrail
+        trails:
+          - arn: arn:aws:cloudtrail:us-east-1:<account_id>:trail/delete-root-access-keys
+
+
+
