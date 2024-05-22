@@ -1,23 +1,10 @@
 policies:
-  - name: aws-cis-1-8-ensure-iam-password-policy
+  - name: aws-cis-1-23-no-root-account-keys
     resource: account
     filters:
-      - or:
-        - type: password-policy
-          key: MinimumPasswordLength
-          value: 14
-          op: lt
-        - type: value
-          key: "password_policy"
-          value: absent
-    actions:
-      - type: set-password-policy
-        policy:
-          MinimumPasswordLength: 14
-          RequireSymbols: true
-          RequireNumbers: true
-          RequireUppercaseCharacters: true
-          RequireLowercaseCharacters: true
-          AllowUsersToChangePassword: true
+      - type: check-root
+        key: access_keys
+        value: present
+
 
 
