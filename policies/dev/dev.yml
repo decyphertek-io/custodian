@@ -1,10 +1,16 @@
 policies:
-  - name: aws-cis-1-23-no-root-account-keys
+  - name: root-keys-or-no-mfa
     resource: account
     filters:
-      - type: check-root
-        key: access_keys
-        value: present
+      - type: iam-summary
+        key: AccountMFAEnabled
+        value: true
+        op: eq
+        value_type: swap
+
+
+
+
 
 
 
