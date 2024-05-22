@@ -1,0 +1,18 @@
+policies:
+  - name: aws-cis-1-8-ensure-iam-password-policy-min-length-14
+    resource: account
+    filters:
+      - type: password-policy
+        key: MinimumPasswordLength
+        value: 14
+        op: lt
+    actions:
+      - type: invoke-lambda
+        function: arn:aws:lambda:us-east-1:{{ account_id }}:function:set-iam-password-policy-min-length
+      - type: put-metric
+        namespace: "AWS/CloudWatch"
+        metric_name: "IAMPasswordPolicyMinLength"
+        key: "MinimumPasswordLength"
+        dimensions:
+          - name: AccountId
+            value: "{{ account_id }}"
