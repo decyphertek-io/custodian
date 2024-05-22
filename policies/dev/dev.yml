@@ -1,8 +1,8 @@
 policies:
   - name: aws-cis-1-8-ensure-iam-password-policy-min-length-14
-    resource: iam-password-policy
+    resource: account
     filters:
-      - type: value
+      - type: password-policy
         key: MinimumPasswordLength
         value: 14
         op: lt
