@@ -1,5 +1,5 @@
 policies:
-  - name: aws-cis-1-8-ensure-iam-password-policy-min-length-14
+  - name: aws-cis-1-8-ensure-iam-password-policy
     resource: account
     filters:
       - or:
@@ -14,4 +14,10 @@ policies:
       - type: set-password-policy
         policy:
           MinimumPasswordLength: 14
+          RequireSymbols: true
+          RequireNumbers: true
+          RequireUppercaseCharacters: true
+          RequireLowercaseCharacters: true
+          AllowUsersToChangePassword: true
+
 
