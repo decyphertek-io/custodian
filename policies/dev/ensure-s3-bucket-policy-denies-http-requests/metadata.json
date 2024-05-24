@@ -35,10 +35,10 @@
   },
   "version": "0.9.36",
   "execution": {
-    "id": "d042a1b1-c362-4aee-a985-9b5cdf99a517",
-    "start": 1716570399.566106,
-    "end_time": 1716570407.896149,
-    "duration": 8.330042839050293
+    "id": "8e8c6d6f-a030-4aaf-a8f9-7681121bb361",
+    "start": 1716570458.653433,
+    "end_time": 1716570458.6619844,
+    "duration": 0.008551359176635742
   },
   "config": {
     "region": "us-east-1",
@@ -73,31 +73,18 @@
     "vars": null
   },
   "sys-stats": {},
-  "api-stats": {
-    "sts.AssumeRole": 2,
-    "s3.ListBuckets": 1,
-    "s3.GetBucketLocation": 1,
-    "s3.GetBucketTagging": 1,
-    "s3.GetBucketPolicy": 1,
-    "s3.GetBucketAcl": 1,
-    "s3.GetBucketReplication": 1,
-    "s3.GetBucketVersioning": 1,
-    "s3.GetBucketWebsite": 1,
-    "s3.GetBucketLogging": 1,
-    "s3.GetBucketNotificationConfiguration": 1,
-    "s3.GetBucketLifecycleConfiguration": 1
-  },
+  "api-stats": {},
   "metrics": [
     {
       "MetricName": "ResourceCount",
-      "Timestamp": "2024-05-24T12:06:47.895844",
+      "Timestamp": "2024-05-24T12:07:38.661730",
       "Value": 1,
       "Unit": "Count"
     },
     {
       "MetricName": "ResourceTime",
-      "Timestamp": "2024-05-24T12:06:47.895852",
-      "Value": 8.321969509124756,
+      "Timestamp": "2024-05-24T12:07:38.661735",
+      "Value": 0.0007143020629882812,
       "Unit": "Seconds"
     }
   ]
