@@ -2,7 +2,7 @@ policies:
   - name: ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
     filters:
-      - type: missing-policy-statement
+      - type: missing-statement
         statement:
           Effect: Deny
           Principal: "*"
@@ -23,6 +23,7 @@ policies:
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
 
 
 
