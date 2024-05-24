@@ -1,5 +1,5 @@
 policies:
-  - name: 2-1-1-ensure-s3-bucket-policy-denies-http-requests
+  - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
     filters:
       - type: missing-statement
