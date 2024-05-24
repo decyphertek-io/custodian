@@ -1,5 +1,5 @@
 policies:
-  - name: force-s3-https
+  - name:  AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: s3
     actions:
       - type: set-statements
@@ -13,6 +13,7 @@ policies:
             Condition:
               Bool:
                 "aws:SecureTransport": false
+
 
 
 
