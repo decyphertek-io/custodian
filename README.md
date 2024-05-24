@@ -14,7 +14,7 @@ Install & Setup:
     unzip awscliv2.zip
     ./aws/install -i /opt/awscli -b /opt/awscli/bin
     # AwsCli profile setup , Need an admin user with aws keys, root acocunt doesnt work.
-    aws configure --profile decyphertek
+    
 
     vim ~/.bashrc
 
@@ -22,9 +22,9 @@ Install & Setup:
     export PATH=$PATH:/opt/awscli/bin
     export AWS_PROFILE=decyphertek
     export AWS_DEFAULT_REGION=us-east-1
+
     source ~/.bashrc
-
-
+    aws configure --profile decyphertek
     python3 -m pip install c7n --break-system-packages
 
     # Create an assume Role : IAM > Roles > Custom Trust Policy

@@ -1,0 +1,31 @@
+policies:
+  - name: ensure-s3-bucket-policy-denies-http-requests
+    resource: aws.s3
+    filters:
+      - type: bucket-policy
+        value: "Policy"
+        value: null
+    actions:
+      - type: set-bucket-policy
+        policy: |
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Sid": "DenyHTTPRequests",
+                "Effect": "Deny",
+                "Principal": "*",
+                "Action": "s3:*",
+                "Resource": [
+                  "arn:aws:s3:::{{ resource['Name'] }}",
+                  "arn:aws:s3:::{{ resource['Name'] }}/*"
+                ],
+                "Condition": {
+                  "Bool": {
+                    "aws:SecureTransport": "false"
+                  }
+                }
+              }
+            ]
+          }
+
