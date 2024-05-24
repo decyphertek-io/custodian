@@ -3,13 +3,8 @@ policies:
     resource: aws.s3
     filters:
       - type: missing-statement
-        statement:
-          Effect: Deny
-          Principal: "*"
-          Action: "s3:*"
-          Condition:
-            Bool:
-              aws:SecureTransport: "false"
+        statement_ids:
+          - DenyHTTPRequests
     actions:
       - type: set-bucket-policy
         add-statements:
