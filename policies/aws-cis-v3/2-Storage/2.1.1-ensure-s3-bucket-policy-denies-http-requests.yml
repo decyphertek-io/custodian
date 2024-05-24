@@ -1,3 +1,4 @@
+# validates, dry run works, errors when making the change
 policies:
   - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
