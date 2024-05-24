@@ -2,7 +2,7 @@ policies:
   - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
     filters:
-      - type: missing-statement
+      - type: missing-policy-statement
         statement_ids:
           - DenyHTTPRequests
     actions:
@@ -13,11 +13,12 @@ policies:
             Principal: "*"
             Action: "s3:*"
             Resource:
-              - "arn:aws:s3:::{{ bucket_name }}"
-              - "arn:aws:s3:::{{ bucket_name }}/*"
+              - "arn:aws:s3:::{{ Name }}"
+              - "arn:aws:s3:::{{ Name }}/*"
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
 
 
 
