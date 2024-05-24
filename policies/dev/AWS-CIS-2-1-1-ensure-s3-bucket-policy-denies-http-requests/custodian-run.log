@@ -1,13 +1,13 @@
-2024-05-24 12:18:29,315 - custodian.policy - DEBUG - Running policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests resource:aws.s3 region:us-east-1 c7n:0.9.36
-2024-05-24 12:18:29,315 - custodian.resources.s3 - DEBUG - Using cached c7n.resources.s3.S3: 1
-2024-05-24 12:18:29,316 - custodian.resources.s3 - DEBUG - Filtered from 1 to 1 s3
-2024-05-24 12:18:29,316 - custodian.policy - INFO - policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests resource:aws.s3 region:us-east-1 count:1 time:0.00
-2024-05-24 12:18:31,831 - custodian.actions - ERROR - error modifying bucket: policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests action:setpolicystatement bucket:cf-templates-1adss6g6lw1t2-us-east-1 error:An error occurred (MalformedPolicy) when calling the PutBucketPolicy operation: Policy has invalid resource
-2024-05-24 12:18:31,832 - custodian.actions - ERROR - encountered 1 errors while processing setpolicystatement
-2024-05-24 12:18:31,832 - custodian.output - DEBUG - metric:ResourceCount Count:1 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3 scope:policy
-2024-05-24 12:18:31,832 - custodian.output - DEBUG - metric:PolicyException Count:1 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3
-2024-05-24 12:18:31,832 - custodian.output - DEBUG - metric:ApiCalls Count:2 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3
-2024-05-24 12:18:31,832 - custodian.output - ERROR - Error while executing policy
+2024-05-24 12:20:06,087 - custodian.policy - DEBUG - Running policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests resource:aws.s3 region:us-east-1 c7n:0.9.36
+2024-05-24 12:20:06,088 - custodian.resources.s3 - DEBUG - Using cached c7n.resources.s3.S3: 1
+2024-05-24 12:20:06,088 - custodian.resources.s3 - DEBUG - Filtered from 1 to 1 s3
+2024-05-24 12:20:06,088 - custodian.policy - INFO - policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests resource:aws.s3 region:us-east-1 count:1 time:0.00
+2024-05-24 12:20:08,770 - custodian.actions - ERROR - error modifying bucket: policy:AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests action:setpolicystatement bucket:cf-templates-1adss6g6lw1t2-us-east-1 error:An error occurred (MalformedPolicy) when calling the PutBucketPolicy operation: Policy has invalid resource
+2024-05-24 12:20:08,770 - custodian.actions - ERROR - encountered 1 errors while processing setpolicystatement
+2024-05-24 12:20:08,771 - custodian.output - DEBUG - metric:ResourceCount Count:1 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3 scope:policy
+2024-05-24 12:20:08,771 - custodian.output - DEBUG - metric:PolicyException Count:1 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3
+2024-05-24 12:20:08,771 - custodian.output - DEBUG - metric:ApiCalls Count:2 policy:aws-cis-2-1-1-ensure-s3-bucket-policy-denies-http-requests restype:aws.s3
+2024-05-24 12:20:08,771 - custodian.output - ERROR - Error while executing policy
 Traceback (most recent call last):
   File "/home/adminotaur/.local/lib/python3.11/site-packages/c7n/policy.py", line 364, in run
     results = a.process(resources)

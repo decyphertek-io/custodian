@@ -20,8 +20,8 @@
             "Principal": "*",
             "Action": "s3:*",
             "Resource": [
-              "arn:aws:s3:::{ resource['Name'] }",
-              "arn:aws:s3:::{ resource['Name'] }/*"
+              "arn:aws:s3:::{ bucket_name }",
+              "arn:aws:s3:::{ bucket_name }/*"
             ],
             "Condition": {
               "Bool": {
@@ -35,10 +35,10 @@
   },
   "version": "0.9.36",
   "execution": {
-    "id": "29754692-efba-4cc0-9fe6-80629fdf54e2",
-    "start": 1716571109.3078845,
-    "end_time": 1716571111.83233,
-    "duration": 2.5244455337524414
+    "id": "f8fc24a7-9523-4280-bef2-dbc01ded6e0f",
+    "start": 1716571206.0804093,
+    "end_time": 1716571208.7706196,
+    "duration": 2.6902103424072266
   },
   "config": {
     "region": "us-east-1",
@@ -80,19 +80,19 @@
   "metrics": [
     {
       "MetricName": "ResourceCount",
-      "Timestamp": "2024-05-24T12:18:29.316202",
+      "Timestamp": "2024-05-24T12:20:06.088487",
       "Value": 1,
       "Unit": "Count"
     },
     {
       "MetricName": "ResourceTime",
-      "Timestamp": "2024-05-24T12:18:29.316208",
-      "Value": 0.0006639957427978516,
+      "Timestamp": "2024-05-24T12:20:06.088493",
+      "Value": 0.0006666183471679688,
       "Unit": "Seconds"
     },
     {
       "MetricName": "PolicyException",
-      "Timestamp": "2024-05-24T12:18:31.832320",
+      "Timestamp": "2024-05-24T12:20:08.770607",
       "Value": 1,
       "Unit": "Count"
     }
