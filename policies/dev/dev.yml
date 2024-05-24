@@ -13,11 +13,12 @@ policies:
             Principal: "*"
             Action: "s3:*"
             Resource:
-              - "arn:aws:s3:::{{ bucket_name }}"
-              - "arn:aws:s3:::{{ bucket_name }}/*"
+              - "arn:aws:s3:::{{ name }}"
+              - "arn:aws:s3:::{{ name }}/*"
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
 
 
 
