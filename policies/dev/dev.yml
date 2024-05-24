@@ -20,6 +20,19 @@ policies:
               Bool:
                 aws:SecureTransport: "false"
 
+properties:
+  statement_ids:
+    items:
+      type: string
+    type: array
+  type:
+    enum:
+    - missing-policy-statement
+    - missing-statement
+required:
+- type
+
+
 
 
 
