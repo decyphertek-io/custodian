@@ -3,7 +3,6 @@ policies:
     resource: aws.s3
     filters:
       - type: bucket-policy
-        value: "Policy"
         value: null
     actions:
       - type: set-bucket-policy
@@ -28,4 +27,5 @@ policies:
               }
             ]
           }
+
 
