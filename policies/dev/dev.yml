@@ -6,18 +6,19 @@ policies:
         statement_ids:
           - DenyHTTPRequests
     actions:
-      - type: set-statements
+      - type: set-bucket-policy
         statements:
           - Sid: DenyHTTPRequests
             Effect: Deny
             Principal: "*"
             Action: "s3:*"
             Resource:
-              - "arn:aws:s3:::{{ Name }}"
-              - "arn:aws:s3:::{{ Name }}/*"
+              - "arn:aws:s3:::{{ bucket_name }}"
+              - "arn:aws:s3:::{{ bucket_name }}/*"
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
 
 
 
