@@ -2,8 +2,10 @@ policies:
   - name: ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
     filters:
-      - type: bucket-policy
-        value: null
+      - type: has-statement
+        statement_ids:
+          - DenyHTTPRequests
+        state: False
     actions:
       - type: set-bucket-policy
         policy: |
@@ -27,5 +29,6 @@ policies:
               }
             ]
           }
+
 
 
