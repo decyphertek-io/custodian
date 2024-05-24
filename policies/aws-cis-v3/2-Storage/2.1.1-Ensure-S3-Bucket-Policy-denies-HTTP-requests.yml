@@ -18,8 +18,3 @@ policies:
             Condition:
               Bool:
                 aws:SecureTransport: "false"
-
-
-
-
-
