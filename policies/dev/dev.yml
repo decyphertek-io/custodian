@@ -2,16 +2,9 @@ policies:
   - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: aws.s3
     filters:
-      - type: has-statement
-        state: False
-        statements:
-          - Sid: DenyHTTPRequests
-            Effect: Deny
-            Principal: "*"
-            Action: "s3:*"
-            Condition:
-              Bool:
-                aws:SecureTransport: "false"
+      - type: missing-statement
+        statement_ids:
+          - DenyHTTPRequests
     actions:
       - type: set-statements
         statements:
@@ -25,6 +18,7 @@ policies:
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
 
 
 
