@@ -10,14 +10,17 @@ policies:
         statements:
           - Sid: DenyHTTPRequests
             Effect: Deny
-            Principal: "*"
             Action: "s3:*"
+            Principal:
+              AWS: "*"
             Resource:
-              - "arn:aws:s3:::{{ Name }}"
-              - "arn:aws:s3:::{{ Name }}/*"
+              - "arn:aws:s3:::{{ bucket_name }}"
+              - "arn:aws:s3:::{{ bucket_name }}/*"
             Condition:
               Bool:
                 aws:SecureTransport: "false"
+
+
 
 
 
