@@ -1,22 +1,16 @@
-# validates, dry run works, errors when making the change
 policies:
-  - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
-    resource: aws.s3
-    filters:
-      - type: missing-statement
-        statement_ids:
-          - DenyHTTPRequests
+  - name:  AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
+    resource: s3
     actions:
       - type: set-statements
         statements:
-          - Sid: DenyHTTPRequests
-            Effect: Deny
-            Principal: "*"
-            Action: "s3:*"
-            Resource:
-              - "arn:aws:s3:::{{ resource['Name'] }}"
-              - "arn:aws:s3:::{{ resource['Name'] }}/*"
+          - Sid: "DenyHttp"
+            Effect: "Deny"
+            Action: "s3:GetObject"
+            Principal:
+              AWS: "*"
+            Resource: "arn:aws:s3:::{bucket_name}/*"
             Condition:
               Bool:
-                aws:SecureTransport: "false"
+                "aws:SecureTransport": false
 
