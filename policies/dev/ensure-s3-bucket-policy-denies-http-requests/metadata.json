@@ -1,0 +1,104 @@
+{
+  "policy": {
+    "name": "ensure-s3-bucket-policy-denies-http-requests",
+    "resource": "aws.s3",
+    "filters": [
+      {
+        "type": "missing-statement",
+        "statement_ids": [
+          "DenyHTTPRequests"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "set-statements",
+        "statements": [
+          {
+            "Sid": "DenyHTTPRequests",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+              "arn:aws:s3:::{ resource['Name'] }",
+              "arn:aws:s3:::{ resource['Name'] }/*"
+            ],
+            "Condition": {
+              "Bool": {
+                "aws:SecureTransport": "false"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "version": "0.9.36",
+  "execution": {
+    "id": "d042a1b1-c362-4aee-a985-9b5cdf99a517",
+    "start": 1716570399.566106,
+    "end_time": 1716570407.896149,
+    "duration": 8.330042839050293
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [
+      "us-east-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "561908028191",
+    "assume_role": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".",
+    "cache_period": 15,
+    "dryrun": true,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "dev.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": 1,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "sts.AssumeRole": 2,
+    "s3.ListBuckets": 1,
+    "s3.GetBucketLocation": 1,
+    "s3.GetBucketTagging": 1,
+    "s3.GetBucketPolicy": 1,
+    "s3.GetBucketAcl": 1,
+    "s3.GetBucketReplication": 1,
+    "s3.GetBucketVersioning": 1,
+    "s3.GetBucketWebsite": 1,
+    "s3.GetBucketLogging": 1,
+    "s3.GetBucketNotificationConfiguration": 1,
+    "s3.GetBucketLifecycleConfiguration": 1
+  },
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2024-05-24T12:06:47.895844",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2024-05-24T12:06:47.895852",
+      "Value": 8.321969509124756,
+      "Unit": "Seconds"
+    }
+  ]
+}

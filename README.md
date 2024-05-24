@@ -111,12 +111,12 @@ Install & Setup:
 
     # Test and run the policy
     custodian validate dev.yml
-    custodian run dev.yaml --output-dir . --verbose --dryrun
+    custodian run dev.yml --output-dir . --verbose --dryrun
     # See if data is being found
     cd dev  
     cat resources.json
     # Run the remediaiton
-    custodian run dev.yaml --output-dir . --verbose
+    custodian run dev.yml --output-dir . --verbose
 
 References:
 ------------
