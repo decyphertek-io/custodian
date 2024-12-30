@@ -14,13 +14,4 @@ policies:
         config_rule:
           source:
             owner: AWS
-            source_identifier: REQUIRED_TAGS
-      - type: notify
-        template: default
-        priority_header: 2
-        subject: "CIS 3.5 Violation - AWS Config Not Enabled"
-        to:
-          - resource-owner
-        transport:
-          type: sns
-          topic: cloud-custodian-alerts 
+            source_identifier: REQUIRED_TAGS 

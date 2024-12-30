@@ -10,13 +10,4 @@ policies:
         op: greater-than
     actions:
       - type: remove-permissions
-        remove-all: true
-      - type: notify
-        template: default
-        priority_header: 1
-        subject: "CIS 2.2.2 Violation - Public EBS Snapshot Detected"
-        to:
-          - resource-owner
-        transport:
-          type: sns
-          topic: cloud-custodian-alerts 
+        remove-all: true 

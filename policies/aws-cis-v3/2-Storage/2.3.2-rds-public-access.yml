@@ -8,13 +8,4 @@ policies:
     actions:
       - type: modify-db-instance
         publicly-accessible: false
-        immediate: true
-      - type: notify
-        template: default
-        priority_header: 1
-        subject: "CIS 2.3.2 Violation - Publicly Accessible RDS Instance Detected"
-        to:
-          - resource-owner
-        transport:
-          type: sns
-          topic: cloud-custodian-alerts 
+        immediate: true 
