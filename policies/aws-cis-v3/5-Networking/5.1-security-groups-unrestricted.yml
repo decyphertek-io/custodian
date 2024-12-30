@@ -1,0 +1,30 @@
+policies:
+  - name: aws-cis-5.1-security-groups-unrestricted
+    resource: security-group
+    filters:
+      - or:
+        - type: ingress
+          IpProtocol: "-1"
+          Ports: [0-65535]
+          Cidr: "0.0.0.0/0"
+        - type: ingress
+          IpProtocol: "tcp"
+          Ports: [22]
+          Cidr: "0.0.0.0/0"
+        - type: ingress
+          IpProtocol: "tcp"
+          Ports: [3389]
+          Cidr: "0.0.0.0/0"
+    actions:
+      - type: remove-permissions
+        ingress: true
+        egress: false
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 5.1 Violation - Security Group with Unrestricted Access"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

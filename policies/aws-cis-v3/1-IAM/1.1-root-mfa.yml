@@ -1,0 +1,17 @@
+policies:
+  - name: aws-cis-1.1-root-mfa
+    resource: account
+    filters:
+      - type: iam-summary
+        key: AccountMFAEnabled
+        value: false
+    actions:
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 1.1 Violation - Root Account MFA Not Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

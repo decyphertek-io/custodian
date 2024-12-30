@@ -1,0 +1,26 @@
+policies:
+  - name: aws-cis-4.4-cloudwatch-iam-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: iam.amazonaws.com
+            event:
+              - CreatePolicy
+              - DeletePolicy
+              - CreateRole
+              - DeleteRole
+              - AttachRolePolicy
+              - DetachRolePolicy
+              - PutUserPolicy
+              - DeleteUserPolicy
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.4 Alert - IAM Policy Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

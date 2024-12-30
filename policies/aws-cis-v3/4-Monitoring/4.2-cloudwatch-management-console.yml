@@ -1,0 +1,19 @@
+policies:
+  - name: aws-cis-4.2-cloudwatch-management-console
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: signin.amazonaws.com
+            detail.eventName: ConsoleLogin
+            detail.additionalEventData.MFAUsed: false
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.2 Alert - Console Sign-in Without MFA Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

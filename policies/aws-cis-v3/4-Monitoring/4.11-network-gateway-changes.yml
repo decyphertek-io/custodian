@@ -1,0 +1,26 @@
+policies:
+  - name: aws-cis-4.11-network-gateway-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: ec2.amazonaws.com
+            event:
+              - CreateCustomerGateway
+              - DeleteCustomerGateway
+              - AttachInternetGateway
+              - CreateInternetGateway
+              - DeleteInternetGateway
+              - DetachInternetGateway
+              - CreateNatGateway
+              - DeleteNatGateway
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.11 Alert - Network Gateway Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

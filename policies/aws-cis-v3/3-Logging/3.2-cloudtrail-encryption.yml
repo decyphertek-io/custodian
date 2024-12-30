@@ -1,0 +1,20 @@
+policies:
+  - name: aws-cis-3.2-cloudtrail-encryption
+    resource: cloudtrail
+    filters:
+      - type: value
+        key: KmsKeyId
+        value: absent
+    actions:
+      - type: set-trail
+        kms-key: alias/aws/cloudtrail
+        enable-logging: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 3.2 Violation - CloudTrail Logs Not Encrypted"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

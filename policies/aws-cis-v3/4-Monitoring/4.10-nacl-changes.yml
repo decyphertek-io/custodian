@@ -1,0 +1,24 @@
+policies:
+  - name: aws-cis-4.10-nacl-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: ec2.amazonaws.com
+            event:
+              - CreateNetworkAcl
+              - CreateNetworkAclEntry
+              - DeleteNetworkAcl
+              - DeleteNetworkAclEntry
+              - ReplaceNetworkAclEntry
+              - ReplaceNetworkAclAssociation
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.10 Alert - Network ACL Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,22 @@
+policies:
+  - name: aws-cis-2.1.2-s3-bucket-encryption
+    resource: s3
+    filters:
+      - or:
+        - type: bucket-encryption
+          state: absent
+        - type: bucket-encryption
+          state: present
+          crypto: NONE
+    actions:
+      - type: set-bucket-encryption
+        crypto: AES256
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.1.2 Violation - S3 Bucket Without Default Encryption"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

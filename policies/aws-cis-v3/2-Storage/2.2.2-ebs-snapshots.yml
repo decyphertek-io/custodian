@@ -1,0 +1,22 @@
+policies:
+  - name: aws-cis-2.2.2-ebs-snapshots
+    resource: ebs-snapshot
+    filters:
+      - type: cross-account
+      - type: value
+        key: createVolumePermissions
+        value_type: size
+        value: 0
+        op: greater-than
+    actions:
+      - type: remove-permissions
+        remove-all: true
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 2.2.2 Violation - Public EBS Snapshot Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

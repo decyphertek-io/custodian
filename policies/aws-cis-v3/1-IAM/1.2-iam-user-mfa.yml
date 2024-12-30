@@ -1,0 +1,22 @@
+policies:
+  - name: aws-cis-1.2-iam-user-mfa
+    resource: iam-user
+    filters:
+      - type: credential
+        key: mfa_active
+        value: false
+      - type: credential
+        key: password_enabled
+        value: true
+    actions:
+      - type: remove-keys
+        disable: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 1.2 Violation - IAM User Without MFA"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,21 @@
+policies:
+  - name: aws-cis-4.1-cloudwatch-unauthorized-api
+    resource: account
+    filters:
+      - type: metrics
+        name: UnauthorizedAPICalls
+        namespace: CloudTrailMetrics
+        statistics: Sum
+        days: 1
+        value: 0
+        op: greater-than
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.1 Alert - Unauthorized API Calls Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

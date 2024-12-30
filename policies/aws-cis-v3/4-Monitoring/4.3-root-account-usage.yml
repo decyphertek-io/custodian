@@ -1,0 +1,19 @@
+policies:
+  - name: aws-cis-4.3-root-account-usage
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: [!not 'signin.amazonaws.com']
+            detail.userIdentity.type: Root
+            detail.userIdentity.invokedBy: absent
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.3 Alert - Root Account Usage Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,31 @@
+policies:
+  - name: aws-cis-2.1.1-s3-public-access-block
+    resource: account
+    filters:
+      - type: s3-public-access-block
+        key: BlockPublicAcls
+        value: false
+      - type: s3-public-access-block
+        key: BlockPublicPolicy
+        value: false
+      - type: s3-public-access-block
+        key: IgnorePublicAcls
+        value: false
+      - type: s3-public-access-block
+        key: RestrictPublicBuckets
+        value: false
+    actions:
+      - type: set-s3-public-access-block
+        block-public-acls: true
+        block-public-policy: true
+        ignore-public-acls: true
+        restrict-public-buckets: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.1.1 Violation - S3 Public Access Block Not Configured"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,20 @@
+policies:
+  - name: aws-cis-2.3.1-rds-encryption
+    resource: rds
+    filters:
+      - type: value
+        key: StorageEncrypted
+        value: false
+    actions:
+      - type: modify-db-instance
+        encryption: true
+        immediate: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.3.1 Violation - Unencrypted RDS Instance Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

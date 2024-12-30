@@ -1,0 +1,20 @@
+policies:
+  - name: aws-cis-3.3-cloudtrail-validation
+    resource: cloudtrail
+    filters:
+      - type: value
+        key: LogFileValidationEnabled
+        value: false
+    actions:
+      - type: set-trail
+        log-validation: true
+        enable-logging: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 3.3 Violation - CloudTrail Log Validation Not Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

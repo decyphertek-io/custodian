@@ -1,0 +1,29 @@
+policies:
+  - name: aws-cis-4.6-network-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: ec2.amazonaws.com
+            event:
+              - CreateVpc
+              - DeleteVpc
+              - ModifyVpcAttribute
+              - AcceptVpcPeeringConnection
+              - CreateVpcPeeringConnection
+              - DeleteVpcPeeringConnection
+              - RejectVpcPeeringConnection
+              - AttachInternetGateway
+              - CreateInternetGateway
+              - DeleteInternetGateway
+              - DetachInternetGateway
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.6 Alert - Network Configuration Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

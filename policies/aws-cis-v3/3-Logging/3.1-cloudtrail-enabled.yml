@@ -1,0 +1,22 @@
+policies:
+  - name: aws-cis-3.1-cloudtrail-enabled
+    resource: account
+    filters:
+      - type: check-cloudtrail
+        multi-region: false
+        running: false
+        notifies: false
+    actions:
+      - type: enable-cloudtrail
+        multi-region: true
+        global-events: true
+        notify: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 3.1 Violation - CloudTrail Not Enabled in All Regions"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

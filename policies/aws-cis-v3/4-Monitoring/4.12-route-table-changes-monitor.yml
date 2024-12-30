@@ -1,0 +1,25 @@
+policies:
+  - name: aws-cis-4.12-route-table-changes-monitor
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: ec2.amazonaws.com
+            event:
+              - CreateRoute
+              - CreateRouteTable
+              - ReplaceRoute
+              - ReplaceRouteTableAssociation
+              - DeleteRouteTable
+              - DeleteRoute
+              - DisassociateRouteTable
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.12 Alert - Route Table Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

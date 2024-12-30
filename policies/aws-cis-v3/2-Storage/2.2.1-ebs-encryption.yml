@@ -1,0 +1,20 @@
+policies:
+  - name: aws-cis-2.2.1-ebs-encryption
+    resource: ebs
+    filters:
+      - type: value
+        key: Encrypted
+        value: false
+    actions:
+      - type: copy-instance-tags
+      - type: encrypt-instance-volumes
+        key: alias/aws/ebs
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.2.1 Violation - Unencrypted EBS Volume Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,26 @@
+policies:
+  - name: aws-cis-4.5-cloudtrail-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: cloudtrail.amazonaws.com
+            event:
+              - StartLogging
+              - StopLogging
+              - UpdateTrail
+              - DeleteTrail
+              - CreateTrail
+              - RemoveTags
+              - AddTags
+              - PutEventSelectors
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.5 Alert - CloudTrail Configuration Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

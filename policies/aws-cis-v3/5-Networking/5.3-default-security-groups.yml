@@ -1,0 +1,25 @@
+policies:
+  - name: aws-cis-5.3-default-security-groups
+    resource: security-group
+    filters:
+      - type: value
+        key: GroupName
+        value: default
+      - or:
+        - type: ingress
+          present: true
+        - type: egress
+          present: true
+    actions:
+      - type: remove-permissions
+        ingress: true
+        egress: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 5.3 Violation - Default Security Group Has Open Rules"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

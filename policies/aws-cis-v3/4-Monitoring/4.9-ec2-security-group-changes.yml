@@ -1,0 +1,26 @@
+policies:
+  - name: aws-cis-4.9-ec2-security-group-changes
+    resource: account
+    filters:
+      - type: event
+        events:
+          - source: ec2.amazonaws.com
+            event:
+              - AuthorizeSecurityGroupIngress
+              - RevokeSecurityGroupIngress
+              - AuthorizeSecurityGroupEgress
+              - RevokeSecurityGroupEgress
+              - CreateSecurityGroup
+              - DeleteSecurityGroup
+              - UpdateSecurityGroupRuleDescriptionsIngress
+              - UpdateSecurityGroupRuleDescriptionsEgress
+    actions:
+      - type: notify
+        template: default
+        priority_header: 1
+        subject: "CIS 4.9 Alert - Security Group Configuration Changes Detected"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,26 @@
+policies:
+  - name: aws-cis-3.5-config-service
+    resource: account
+    filters:
+      - type: config-compliance
+        eval_filters:
+          - type: value
+            key: ConfigurationRecorderStatus.recording
+            value: false
+    actions:
+      - type: set-config-rule
+        state: present
+        name: aws-config-enabled
+        config_rule:
+          source:
+            owner: AWS
+            source_identifier: REQUIRED_TAGS
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 3.5 Violation - AWS Config Not Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

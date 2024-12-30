@@ -1,0 +1,24 @@
+policies:
+  - name: aws-cis-1.4-access-key-rotation
+    resource: iam-user
+    filters:
+      - type: access-key
+        key: Status
+        value: Active
+      - type: access-key
+        key: LastUsedDate
+        value_type: age
+        value: 90
+        op: greater-than
+    actions:
+      - type: remove-keys
+        disable: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 1.4 Violation - Access Keys Not Rotated"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 
