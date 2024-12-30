@@ -1,0 +1,13 @@
+policies:
+  - name: azure-cis-1.1-storage-encryption
+    resource: azure.storage
+    filters:
+      - type: value
+        key: enableHttpsTrafficOnly
+        value: false
+    actions:
+      - type: set-https-only
+        enabled: true
+      - type: notify-action-group
+        action-group: cloud-custodian-alerts
+        message: "CIS 1.1 Remediation - Storage Account HTTPS-Only Has Been Enabled" 

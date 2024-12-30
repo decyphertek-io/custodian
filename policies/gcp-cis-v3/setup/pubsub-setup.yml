@@ -1,0 +1,12 @@
+policies:
+  - name: setup-gcp-pubsub
+    resource: gcp.pubsub-topic
+    filters:
+      - type: value
+        key: name
+        value: cloud-custodian-alerts
+        op: eq
+    actions:
+      - type: create
+        name: cloud-custodian-alerts
+        project: placeholder-project-id 
