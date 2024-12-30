@@ -1,6 +1,11 @@
 policies:
-  - name:  AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
+  - name: AWS-CIS-2-1-1-ensure-s3-bucket-policy-denies-http-requests
     resource: s3
+    filters:
+      - not:
+        - type: bucket-policy
+          key: Statement[?Effect == 'Deny' && Action == 's3:GetObject' && Condition.Bool."aws:SecureTransport" == false]
+          value: present
     actions:
       - type: set-statements
         statements:

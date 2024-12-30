@@ -2,15 +2,13 @@ policies:
   - name: aws-cis-2.2.2-ebs-snapshots
     resource: ebs-snapshot
     filters:
-      - type: cross-account
       - type: value
         key: createVolumePermissions
-        value_type: size
-        value: 0
-        op: greater-than
+        value:
+          - group: all
     actions:
       - type: remove-permissions
-        remove-all: true
+        groups: ['all']
       - type: notify
         template: default
         priority_header: 2

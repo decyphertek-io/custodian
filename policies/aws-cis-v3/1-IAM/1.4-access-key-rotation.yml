@@ -11,12 +11,10 @@ policies:
         value: 90
         op: greater-than
     actions:
-      - type: remove-keys
-        disable: true
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 1.4 Violation - Access Keys Not Rotated"
+        subject: "CIS 1.4 Violation - Access Keys Need Rotation (Over 90 Days Old)"
         to:
           - resource-owner
         transport:
