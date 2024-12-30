@@ -123,3 +123,58 @@ References:
 
     https://cloudcustodian.io/
     https://cloudcustodian.io/docs/index.html
+
+## AWS CIS V3 Cloud Custodian Policies
+
+This repository contains Cloud Custodian policies that implement AWS CIS V3 controls with automated remediation.
+
+### Prerequisites
+
+1. AWS credentials configured
+2. Cloud Custodian installed (`pip install c7n`)
+3. Appropriate AWS permissions to create and manage resources
+
+### SNS Notification Setup
+
+The policies use SNS notifications to alert about remediation actions. To set up the required SNS topic:
+
+1. Run the SNS setup policy first:
+```bash
+custodian run -s output policies/setup/sns-setup.yml
+```
+
+2. After the topic is created, subscribe to notifications:
+```bash
+aws sns subscribe \
+    --topic-arn arn:aws:sns:REGION:ACCOUNT_ID:cloud-custodian-alerts \
+    --protocol email \
+    --notification-endpoint your-email@domain.com
+```
+
+3. Confirm the subscription by clicking the link in the email you receive
+
+### Running the Policies
+
+To run all CIS policies:
+```bash
+custodian run -s output policies/aws-cis-v3/**/*.yml
+```
+
+To run a specific section:
+```bash
+custodian run -s output policies/aws-cis-v3/1-IAM/*.yml
+```
+
+### Policy Structure
+
+Each policy follows this pattern:
+1. Checks for non-compliant resources
+2. Applies automated remediation where possible
+3. Sends notification about the remediation action taken
+
+### Notifications
+
+All remediation actions will send notifications via the `cloud-custodian-alerts` SNS topic. The notifications will indicate:
+- What CIS control was enforced
+- What remediation action was taken
+- Which resources were affected

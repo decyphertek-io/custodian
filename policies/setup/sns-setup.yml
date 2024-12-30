@@ -1,0 +1,24 @@
+policies:
+  - name: setup-sns-alerts
+    resource: sns
+    filters:
+      - type: value
+        key: TopicArn
+        value: "cloud-custodian-alerts"
+        op: eq
+        value_type: normalize
+        missing-ok: true
+    actions:
+      - type: create-topic
+        name: cloud-custodian-alerts
+        attributes:
+          DisplayName: "Cloud Custodian Alerts"
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "SNS Topic Setup - Cloud Custodian Alerts Topic Created"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 
