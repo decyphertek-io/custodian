@@ -10,4 +10,13 @@ policies:
         log-group: vpc-flow-logs
         destination: cloud-watch-logs
         traffic-type: ALL
-        retention: 365 
+        retention: 365
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 5.2 Remediation - VPC Flow Logs Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

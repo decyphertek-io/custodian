@@ -14,4 +14,13 @@ policies:
         config_rule:
           source:
             owner: AWS
-            source_identifier: REQUIRED_TAGS 
+            source_identifier: REQUIRED_TAGS
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 3.5 Remediation - AWS Config Has Been Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

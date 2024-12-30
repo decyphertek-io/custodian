@@ -13,4 +13,13 @@ policies:
             Condition:
               Bool:
                 "aws:SecureTransport": false
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.1.1 Remediation - S3 Bucket Policy Updated to Deny HTTP Requests"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts
 

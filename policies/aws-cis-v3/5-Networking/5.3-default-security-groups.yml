@@ -13,4 +13,13 @@ policies:
     actions:
       - type: remove-permissions
         ingress: true
-        egress: true 
+        egress: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 5.3 Remediation - Default Security Group Rules Removed"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

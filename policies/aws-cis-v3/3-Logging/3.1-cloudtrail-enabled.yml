@@ -14,7 +14,7 @@ policies:
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 3.1 Violation - CloudTrail Not Enabled in All Regions"
+        subject: "CIS 3.1 Remediation - CloudTrail Has Been Enabled in All Regions"
         to:
           - resource-owner
         transport:

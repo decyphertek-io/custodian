@@ -21,8 +21,8 @@ policies:
         egress: false
       - type: notify
         template: default
-        priority_header: 1
-        subject: "CIS 5.1 Violation - Security Group with Unrestricted Access"
+        priority_header: 2
+        subject: "CIS 5.1 Remediation - Unrestricted Security Group Access Removed"
         to:
           - resource-owner
         transport:

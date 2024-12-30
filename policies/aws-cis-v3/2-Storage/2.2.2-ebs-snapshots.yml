@@ -10,4 +10,13 @@ policies:
         op: greater-than
     actions:
       - type: remove-permissions
-        remove-all: true 
+        remove-all: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.2.2 Remediation - Public Access Removed from EBS Snapshot"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

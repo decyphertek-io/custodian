@@ -11,4 +11,13 @@ policies:
     actions:
       - type: set-bucket-encryption
         crypto: AES256
-        enabled: true 
+        enabled: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.1.2 Remediation - S3 Bucket Encryption Has Been Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

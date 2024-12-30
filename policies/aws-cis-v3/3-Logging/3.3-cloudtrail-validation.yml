@@ -12,7 +12,7 @@ policies:
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 3.3 Violation - CloudTrail Log Validation Not Enabled"
+        subject: "CIS 3.3 Remediation - CloudTrail Log Validation Has Been Enabled"
         to:
           - resource-owner
         transport:

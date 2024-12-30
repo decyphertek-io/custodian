@@ -9,12 +9,10 @@ policies:
         key: password_enabled
         value: true
     actions:
-      - type: remove-keys
-        disable: true
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 1.2 Violation - IAM User Without MFA"
+        subject: "CIS 1.2 Violation - IAM User Requires MFA Setup"
         to:
           - resource-owner
         transport:

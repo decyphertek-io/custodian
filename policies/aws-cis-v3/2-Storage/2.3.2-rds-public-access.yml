@@ -8,4 +8,13 @@ policies:
     actions:
       - type: modify-db-instance
         publicly-accessible: false
-        immediate: true 
+        immediate: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.3.2 Remediation - RDS Instance Made Private"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

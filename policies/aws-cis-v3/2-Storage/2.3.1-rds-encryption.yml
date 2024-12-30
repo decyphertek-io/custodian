@@ -12,7 +12,7 @@ policies:
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 2.3.1 Violation - Unencrypted RDS Instance Detected"
+        subject: "CIS 2.3.1 Remediation - RDS Instance Has Been Encrypted"
         to:
           - resource-owner
         transport:

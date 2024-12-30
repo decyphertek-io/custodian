@@ -10,4 +10,13 @@ policies:
         value: CUSTOMER
     actions:
       - type: set-rotation
-        state: true 
+        state: true
+      - type: notify
+        template: default
+        priority_header: 2
+        subject: "CIS 2.8 Remediation - KMS Key Rotation Enabled"
+        to:
+          - resource-owner
+        transport:
+          type: sns
+          topic: cloud-custodian-alerts 

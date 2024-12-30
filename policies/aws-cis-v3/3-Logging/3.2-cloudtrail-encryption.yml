@@ -12,7 +12,7 @@ policies:
       - type: notify
         template: default
         priority_header: 2
-        subject: "CIS 3.2 Violation - CloudTrail Logs Not Encrypted"
+        subject: "CIS 3.2 Remediation - CloudTrail Logs Encryption Enabled"
         to:
           - resource-owner
         transport:
