@@ -1,0 +1,23 @@
+policies:
+  - name: gcp-cis-3.3-log-metric-alerts
+    resource: gcp.log-project-metric
+    description: "Ensure that the log metric filter and alerts exist for audit configuration changes (CIS 2.8)"
+    filters:
+      - or:
+          - type: value
+            key: filter
+            value: "protoPayload.methodName=\"SetIamPolicy\" AND protoPayload.serviceData.policyDelta.auditConfigDeltas:*"
+            op: not-contains
+          - type: value
+            key: metricDescriptor.metricKind
+            value: DELTA
+            op: ne
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 2.8 Finding - Missing Log Metric for Audit Config Changes"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

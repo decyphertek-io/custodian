@@ -1,0 +1,21 @@
+policies:
+  - name: gcp-cis-6.3-sql-backup-config
+    resource: gcp.sql-instance
+    description: "Ensure that Cloud SQL database instances are configured with automated backups (CIS 6.2.1)"
+    filters:
+      - type: value
+        key: backupConfiguration.enabled
+        value: false
+    actions:
+      - type: set-backup
+        enabled: true
+        binaryLogEnabled: true
+        startTime: "02:00"
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 6.2.1 Remediation - SQL Instance Backups Enabled"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

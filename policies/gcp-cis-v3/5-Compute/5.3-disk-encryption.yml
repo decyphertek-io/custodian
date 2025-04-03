@@ -1,0 +1,25 @@
+policies:
+  - name: gcp-cis-5.3-disk-encryption
+    resource: gcp.disk
+    description: "Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK) (CIS 4.6)"
+    filters:
+      - not:
+        - or:
+          - type: value
+            key: diskEncryptionKey.kmsKeyName
+            value: present
+          - type: value
+            key: diskEncryptionKey.sha256
+            value: present
+      - type: value
+        key: tags.items.critical
+        value: true
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 4.6 Finding - Critical VM disks without encryption keys"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

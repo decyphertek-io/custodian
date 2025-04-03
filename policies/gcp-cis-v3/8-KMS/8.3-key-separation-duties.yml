@@ -1,0 +1,19 @@
+policies:
+  - name: gcp-cis-8.3-key-separation-duties
+    resource: gcp.project
+    description: "Ensure that Separation of duties is enforced while assigning KMS related roles to users (CIS 1.9)"
+    filters:
+      - type: iam-policy
+        value_type: cross-check
+        key: bindings[?role=='roles/cloudkms.admin'].members[]
+        value: bindings[?role=='roles/cloudkms.cryptoKeyEncrypterDecrypter'].members[]
+        op: intersect
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 1.9 Finding - KMS Roles Separation of Duties Violation"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,18 @@
+policies:
+  - name: gcp-cis-1.3-project-iam-admin-roles
+    resource: gcp.project
+    description: "Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level (CIS 1.5)"
+    filters:
+      - type: iam-policy
+        key: bindings[?role=='roles/iam.serviceAccountUser' || role=='roles/iam.serviceAccountTokenCreator'].members[]
+        value_type: value
+        value_regex: "user:.*"
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 1.5 Finding - Users with Service Account User/Token Creator Roles"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

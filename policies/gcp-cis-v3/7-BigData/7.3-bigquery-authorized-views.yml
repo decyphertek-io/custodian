@@ -1,0 +1,22 @@
+policies:
+  - name: gcp-cis-7.3-bigquery-authorized-views
+    resource: gcp.bq-dataset
+    description: "Ensure that BigQuery datasets are accessed through authorized views"
+    filters:
+      - type: value
+        key: access[?role=='READER' && userByEmail==null].specialGroup
+        value: "allAuthenticatedUsers"
+        op: contains
+    actions:
+      - type: set-permissions
+        remove-access:
+          - specialGroup: "allAuthenticatedUsers"
+            role: "READER"
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "BigQuery Security Finding - Removed Authenticated User Access"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 
