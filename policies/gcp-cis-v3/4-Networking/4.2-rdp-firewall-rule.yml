@@ -1,0 +1,21 @@
+policies:
+  - name: gcp-cis-4.2-default-firewall-rdp-blocked
+    resource: gcp.firewall
+    description: "Ensure that the default network does not allow RDP from the internet (CIS 3.7)"
+    filters:
+      - type: value
+        key: name
+        value: default-allow-rdp
+      - type: ingress
+        ip-range: 0.0.0.0/0
+        port: 3389
+    actions:
+      - type: delete
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 3.7 Remediation - Default RDP Firewall Rule Removed"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

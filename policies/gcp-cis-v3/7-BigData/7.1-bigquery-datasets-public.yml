@@ -1,0 +1,19 @@
+policies:
+  - name: gcp-cis-7.1-bigquery-datasets-public
+    resource: gcp.bq-dataset
+    description: "Ensure that BigQuery datasets are not anonymously or publicly accessible (CIS 7.1)"
+    filters:
+      - type: iam-policy
+        key: bindings[].members[]
+        value: "allUsers" 
+        op: contains
+    actions:
+      - type: remove-public-access
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 7.1 Remediation - BigQuery Dataset Public Access Removed"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

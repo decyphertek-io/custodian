@@ -1,0 +1,27 @@
+policies:
+  - name: gcp-cis-3.2-audit-logging-enabled
+    resource: gcp.project
+    description: "Ensure that Cloud Audit Logging is configured properly (CIS 2.1)"
+    filters:
+      - type: audit-config
+        key: auditLogConfigs
+        op: absent
+        service-name: allServices
+        exempted-members: null
+        log-type: DATA_WRITES
+    actions:
+      - type: set-log-admin
+        add-exemption:
+          service: allServices
+          log-types:
+            - DATA_WRITES
+            - DATA_READ
+            - ADMIN_READ
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 2.1 Remediation - Audit Logging Enabled"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

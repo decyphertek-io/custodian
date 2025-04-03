@@ -1,0 +1,21 @@
+policies:
+  - name: gcp-cis-5.2-os-login-enabled
+    resource: gcp.instance
+    description: "Ensure OS Login is enabled for a Project (CIS 4.3)"
+    filters:
+      - type: value
+        key: "metadata.items[?key=='enable-oslogin'].value"
+        value: "TRUE"
+        op: ne
+    actions:
+      - type: set-metadata
+        metadata:
+          enable-oslogin: "TRUE"
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 4.3 Remediation - OS Login Enabled on Instance"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

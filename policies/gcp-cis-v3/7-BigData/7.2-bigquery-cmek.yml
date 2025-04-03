@@ -1,0 +1,17 @@
+policies:
+  - name: gcp-cis-7.2-bigquery-datasets-cmek
+    resource: gcp.bq-dataset
+    description: "Ensure that BigQuery datasets are encrypted with Customer-Managed Encryption Keys (CMEK) (CIS 7.2)"
+    filters:
+      - type: value
+        key: defaultEncryptionConfiguration.kmsKeyName
+        value: absent
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 7.2 Finding - BigQuery Datasets Without CMEK Encryption"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

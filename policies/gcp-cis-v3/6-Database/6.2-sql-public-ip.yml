@@ -1,0 +1,20 @@
+policies:
+  - name: gcp-cis-6.2-sql-public-ip
+    resource: gcp.sql-instance
+    description: "Ensure that Cloud SQL database instances do not have public IPs (CIS 6.1.2)"
+    filters:
+      - type: value
+        key: ipConfiguration.ipv4Enabled
+        value: true
+    actions:
+      - type: set-network
+        public-ip: false
+        authorized-networks: []
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 6.1.2 Remediation - SQL Instance Public IP Removed"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 
