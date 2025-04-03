@@ -1,0 +1,19 @@
+policies:
+  - name: gcp-cis-2.2-storage-bucket-public-access
+    resource: gcp.storage
+    filters:
+      - type: value
+        key: iamConfiguration.publicAccessPrevention
+        value: unspecified
+        op: eq
+    actions:
+      - type: set-public-access-prevention
+        value: enforced
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 2.2 Remediation - GCP Storage Buckets Public Access Prevention Enforced"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

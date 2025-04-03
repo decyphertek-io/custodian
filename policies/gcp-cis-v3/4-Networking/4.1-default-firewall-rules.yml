@@ -1,0 +1,21 @@
+policies:
+  - name: gcp-cis-4.1-default-firewall-ssh-blocked
+    resource: gcp.firewall
+    description: "Ensure that the default network does not allow SSH from the internet (CIS 3.6)"
+    filters:
+      - type: value
+        key: name
+        value: default-allow-ssh
+      - type: ingress
+        ip-range: 0.0.0.0/0
+        port: 22
+    actions:
+      - type: delete
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 3.6 Remediation - Default SSH Firewall Rule Removed"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 

@@ -1,0 +1,17 @@
+policies:
+  - name: gcp-cis-6.1-sql-instance-cmek
+    resource: gcp.sql-instance
+    description: "Ensure Cloud SQL database instances are encrypted with Customer-Managed Encryption Keys (CMEK) (CIS 6.1.3)"
+    filters:
+      - type: value
+        key: diskEncryptionConfiguration.kmsKeyName
+        value: absent
+    actions:
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 6.1.3 Finding - SQL Instances Without CMEK Encryption"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 
