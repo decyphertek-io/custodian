@@ -1,0 +1,21 @@
+policies:
+  - name: gcp-cis-8.1-key-rotation-period
+    resource: gcp.kms-key
+    description: "Ensure KMS encryption keys are rotated within a period of 90 days (CIS 1.10)"
+    filters:
+      - type: value
+        key: rotationPeriod
+        value_type: age
+        value: 90
+        op: greater-than
+    actions:
+      - type: set-rotation-period
+        period: 7776000s  # 90 days in seconds
+      - type: notify
+        to:
+          - cloud-custodian-alerts
+        format: json
+        subject: "CIS 1.10 Remediation - KMS Key Rotation Period Set to 90 Days"
+        transport:
+          type: pubsub
+          topic: cloud-custodian-alerts 
